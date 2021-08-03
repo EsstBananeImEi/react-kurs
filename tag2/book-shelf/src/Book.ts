@@ -1,10 +1,10 @@
 export default class Book {
     constructor(
-        private title: string,
+        public title: string,
         public pageCount: number,
         public pageCurrent: number,
         public isBorrowed: boolean,
-        private genre: string,
+        public genre: string,
         public language: string
     ) { }
 

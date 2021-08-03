@@ -11,14 +11,18 @@ export default class BookShelf {
         let allPages = 0
         let languages = []
         let borrowed = 0
+        let notWatchedPages = 0
         this.books.forEach(book => {
             if (languages.indexOf(book.language) == -1) {
                 languages.push(book.language)
             }
+
             allPages += book.pageCount
+
             if (book.isBorrowed) {
                 borrowed += 1
             }
+
             if (book.pageCurrent > 0) {
                 read += 1
                 pages += book.pageCount
@@ -26,24 +30,7 @@ export default class BookShelf {
 
             } else {
                 notRead += 1
-            }
-        });
-
-        this.books.map(book => {
-            if (languages.indexOf(book.language) == -1) {
-                languages.push(book.language)
-            }
-            allPages += book.pageCount
-            if (book.isBorrowed) {
-                borrowed += 1
-            }
-            if (book.pageCurrent > 0) {
-                read += 1
-                pages += book.pageCount
-                watchedPages += book.pageCurrent
-
-            } else {
-                notRead += 1
+                notWatchedPages += book.pageCount
             }
         });
 
@@ -51,7 +38,8 @@ export default class BookShelf {
             '*** Bookshelf ***',
             '',
             `    - Gesamt Lesefortschritt: ${Math.round(100 * watchedPages / allPages)}%.`,
-            `    - ${(read < 2) ? read + ' Buch' : read + ' Bücher'} (${Math.round(100 * watchedPages / pages)}%).`,
+            `    - ${(read < 2) ? read + ' Buch' : read + ' Bücher'} angefangen (${Math.round(100 * watchedPages / pages)}%).`,
+            `    - ${(notRead < 2) ? notRead + ' Buch' : notRead + ' Bücher'} noch anzufangen (${Math.round(100 * notWatchedPages / allPages)}%).`,
             `    - Es gibt ${this.books.length}${(this.books.length > 1 ? ' Bücher' : ' Buch')} in ${languages.length}${(languages.length > 1 ? ' Sprachen' : ' Sprache')}`,
             `    - Es ${(borrowed > 1) ? 'wurden ' + borrowed + ' Bücher' : 'wurde ' + borrowed + ' Buch'} ausgeliehen`,
             '',
