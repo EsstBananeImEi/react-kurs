@@ -10,4 +10,4 @@ function remove_middle(liste) {
 
 array = remove_middle(array)
 console.log(array)
-console.log(array.)
+console.log(array)
