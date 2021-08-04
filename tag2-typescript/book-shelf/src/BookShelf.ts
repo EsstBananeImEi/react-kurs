@@ -1,7 +1,9 @@
 import Book from "./Book";
 
 export default class BookShelf {
-    constructor(private books: Book[]) { }
+    constructor(
+        private books: Book[]
+    ) { }
 
     toString(): string {
         let read = 0

@@ -1,14 +1,20 @@
+import { Genre } from "./services/myTypes"
+
 export default class Book {
     constructor(
         public title: string,
         public pageCount: number,
         public pageCurrent: number,
         public isBorrowed: boolean,
-        public genre: string,
+        public genre: Genre,
         public language: string
     ) { }
 
-    progress(): number {
+    unreadPages(): number {
+        return this.pageCount - this.pageCurrent
+    }
+
+    private progress(): number {
         return Math.round(100 * this.pageCurrent / this.pageCount)
     }
 
