@@ -5,7 +5,7 @@ export default interface BookModel {
     published: Date;
     subtitle?: string;
     rating?: number;
-    thumbnails: ThumbnailModel[];
+    thumbnails?: ThumbnailModel[];
     description?: string;
 }
 
