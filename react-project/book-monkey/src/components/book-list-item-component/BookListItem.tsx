@@ -15,8 +15,11 @@ export default function BookListItem(props: Props): ReactElement {
                 <div className="header">{book.title}</div>
                 <div className="description">{book.subtitle}</div>
                 <div className="metadata">
-                    {book.authors.map((author: string, index) =>
-                        <span id={"metadata " + author} key={index}>{author} </span>
+                    {book.authors.map((author, index) =>
+                        <span id={"metadata " + author} key={index}>
+                            {author}
+                            {index !== book.authors.length - 1 && ', '}
+                        </span>
                     )}
                     <br />
                     ISBN {book.isbn}
