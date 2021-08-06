@@ -7,9 +7,9 @@ import { books } from './shared/books';
 
 function App(): ReactElement {
     return (
-        <>
-            {books.length !== 0 ? <BookList /> : <LoadingSpinner />}
-        </>
+        <div className="ui container">
+            {books.length > 0 ? <BookList /> : <LoadingSpinner />}
+        </div>
     );
 }
 

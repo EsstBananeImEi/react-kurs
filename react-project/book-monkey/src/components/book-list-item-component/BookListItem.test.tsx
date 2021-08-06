@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import BookListItem from './BookListItem';
 import { act } from "react-dom/test-utils";
 import { unmountComponentAtNode } from 'react-dom';
-import Book from '../../types/Book';
+import Book from '../../models/Book';
 
 interface Props {
     book: Book
