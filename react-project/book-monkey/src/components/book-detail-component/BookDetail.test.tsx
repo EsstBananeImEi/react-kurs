@@ -27,9 +27,16 @@ const container: Props = {
 };
 
 describe('Test Book Detail', () => {
-    it('book main div is visible', () => {
+    it('bookdetail main div is visible', () => {
         render(<BookDetail book={container.book} onShowList={container.onShowList} />);
-        const divElement = document.getElementsByClassName('ui middle aligned selection divided list')
+        const divElement = document.getElementsByClassName('ui raised padded container segment')
         expect(divElement).toBeTruthy();
     });
+
+    it('h1 with booktitle is visible', () => {
+        render(<BookDetail book={container.book} onShowList={container.onShowList} />);
+        const divElement: HTMLCollectionOf<HTMLHeadingElement> = document.getElementsByTagName('h1')
+        expect(divElement).toEqual("<h1>Angular</h1>");
+    });
+
 })

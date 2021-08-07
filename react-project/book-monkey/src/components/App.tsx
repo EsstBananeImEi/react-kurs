@@ -30,16 +30,5 @@ export default function App(): ReactElement {
                 : <LoadingSpinner />}
         </div>
     );
-
-    // return (
-    //     <div className="ui container">
-    //         {books.length > 0
-    //             ? (book && viewState == 'listView'
-    //                 ? <BookList onShowDetails={onShowDetails} />
-    //                 : <BookDetail book={book} onShowList={onShowList} />
-    //             : <LoadingSpinner />
-    //         }
-    //     </div>
-    // );
 }
 
