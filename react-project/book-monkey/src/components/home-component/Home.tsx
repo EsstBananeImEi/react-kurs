@@ -13,12 +13,12 @@ export default function Home(props: Props): ReactElement {
             <p>Das ist der BookMonkey in React</p>
             <button onClick={onShowList} className='ui red button'>Buchliste ansehen<i className='right arrow icon'></i></button>
 
-            <h2>Suche</h2>
+            {/* <h2>Suche</h2>
             <div className='ui icon input'>
                 <input type="text" className='prompt'></input>
                 <i className='search icon'>...</i>
 
-            </div>
+            </div> */}
         </>
     )
 }

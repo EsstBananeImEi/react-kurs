@@ -6,13 +6,11 @@ import LoadingSpinner from '../../loading-spinner/LoadingSpinner'
 interface Props {
     book: BookModel
     onShowList: () => void
-    onEdit: (book: BookModel) => void
 }
 
 export default function BookDetail(props: Props): ReactElement {
     const isbn = props.book.isbn
     const onShowList = props.onShowList
-    const onEdit = props.onEdit
     const [book, setBook] = useState<BookModel>()
 
 
@@ -72,7 +70,6 @@ export default function BookDetail(props: Props): ReactElement {
                     : false}
             </div>
             <button onClick={onShowList} className='ui button' >zurück zur Buchliste</button>
-            <button onClick={() => onEdit(book)} className='ui button blue' >Editieren</button>
             <button onClick={onDelete} className='ui button red' >Buch Löschen!</button>
         </div>
     )

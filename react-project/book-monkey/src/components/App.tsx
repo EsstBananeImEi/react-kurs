@@ -3,14 +3,13 @@ import BookModel from '../models/Book';
 import BookList from './book-component/book-list-component/BookList';
 import BookDetail from './book-component/book-detail-component/BookDetail';
 import NavBar from './navigation-component/NavBar';
-import BookEdit from './book-component/book-edit-component/BookEdit';
 import Home from './home-component/Home';
 
-type ViewState = 'listView' | 'detailView' | 'editView' | 'homeView'
+type ViewState = 'listView' | 'detailView' | 'homeView'
 
 export default function App(): ReactElement {
     const [book, setBook] = useState<BookModel>()
-    const [viewState, setViewState] = useState<ViewState>('homeView')
+    const [viewState, setViewState] = useState<ViewState>('listView')
 
     const onShowDetails = (bookParam: BookModel) => {
         setBook(bookParam)
@@ -20,11 +19,6 @@ export default function App(): ReactElement {
     const onShowList = () => {
         setBook(undefined)
         setViewState('listView')
-    }
-
-    const onEdit = (bookParam: BookModel) => {
-        setBook(bookParam)
-        setViewState('editView')
     }
 
     const onHome = () => {
@@ -38,10 +32,8 @@ export default function App(): ReactElement {
             {(!book && viewState === 'homeView'
                 ? <Home onShowList={onShowList} />
                 : book && viewState === 'detailView'
-                    ? <BookDetail book={book} onShowList={onShowList} onEdit={onEdit} />
-                    : book && viewState === 'editView'
-                        ? <BookEdit book={book} onShowDetails={onShowDetails} />
-                        : <BookList onShowDetails={onShowDetails} />
+                    ? <BookDetail book={book} onShowList={onShowList} />
+                    : <BookList onShowDetails={onShowDetails} />
             )}
         </div>
     );
