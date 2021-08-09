@@ -1,11 +1,11 @@
 import React, { ReactElement, useState } from 'react';
-import LoadingSpinner from './loading-spinner/LoadingSpinner';
-import { books } from '../shared/books';
 import BookModel from '../models/Book';
-import BookList from './book-list-component/BookList';
-import BookDetail from './book-detail-component/BookDetail';
+import BookList from './book-component/book-list-component/BookList';
+import BookDetail from './book-component/book-detail-component/BookDetail';
+import NavBar from './navigation-component/NavBar';
+import Home from './home-component/Home';
 
-type ViewState = 'listView' | 'detailView'
+type ViewState = 'listView' | 'detailView' | 'homeView'
 
 export default function App(): ReactElement {
     const [book, setBook] = useState<BookModel>()
@@ -21,13 +21,20 @@ export default function App(): ReactElement {
         setViewState('listView')
     }
 
+    const onHome = () => {
+        setBook(undefined)
+        setViewState('homeView')
+    }
+
     return (
         <div className="ui container">
-            {books.length > 0
-                ? (book
+            <NavBar onHome={onHome} onShowList={onShowList} />
+            {(!book && viewState === 'homeView'
+                ? <Home onShowList={onShowList} />
+                : book && viewState === 'detailView'
                     ? <BookDetail book={book} onShowList={onShowList} />
-                    : <BookList onShowDetails={onShowDetails} />)
-                : <LoadingSpinner />}
+                    : <BookList onShowDetails={onShowDetails} />
+            )}
         </div>
     );
 }

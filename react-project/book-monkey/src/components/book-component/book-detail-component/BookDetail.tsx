@@ -1,16 +1,38 @@
-import React, { ReactElement } from 'react'
-import BookModel from '../../models/Book'
+import axios from 'axios'
+import React, { ReactElement, useEffect, useState } from 'react'
+import BookModel from '../../../models/Book'
+import LoadingSpinner from '../../loading-spinner/LoadingSpinner'
 
 interface Props {
     book: BookModel
     onShowList: () => void
 }
 
-
-
 export default function BookDetail(props: Props): ReactElement {
-    const book = props.book
+    const isbn = props.book.isbn
     const onShowList = props.onShowList
+    const [book, setBook] = useState<BookModel>()
+
+
+    useEffect(() => {
+        axios({
+            method: 'GET',
+            url: `https://api3.angular-buch.com/book/${isbn}`
+        }).then(response => {
+            setBook(response.data);
+        });
+    }, [isbn]);
+
+    const onDelete = (): void => {
+        axios({
+            method: 'DELETE',
+            url: `https://api3.angular-buch.com/book/${isbn}`
+        }).then(response => {
+            onShowList();
+        });
+    }
+
+    if (!book) { return <LoadingSpinner /> }
 
     return (
         <div className='ui raised padded container segment'>
@@ -29,7 +51,7 @@ export default function BookDetail(props: Props): ReactElement {
                 </div>
                 <div className="four wide column">
                     <h4>Erschienen</h4>
-                    {book.published.toLocaleDateString()}
+                    {new Date(book.published).toLocaleDateString()}
                 </div>
                 <div className="four wide column">
                     <h4>Rating</h4>
@@ -47,7 +69,8 @@ export default function BookDetail(props: Props): ReactElement {
                         .map((thrumbnail, index) => <img key={index} alt={book.title} src={thrumbnail.url} />)
                     : false}
             </div>
-            <button onClick={onShowList} className='ui button red' >zurück zur Buchliste</button>
+            <button onClick={onShowList} className='ui button' >zurück zur Buchliste</button>
+            <button onClick={onDelete} className='ui button red' >Buch Löschen!</button>
         </div>
     )
 }
