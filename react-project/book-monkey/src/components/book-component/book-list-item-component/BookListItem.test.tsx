@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { act } from "react-dom/test-utils";
 import { unmountComponentAtNode } from 'react-dom';
-import BookModel from '../../models/Book';
+import BookModel from '../../../models/Book';
 import BookListItem from './BookListItem';
 
 interface Props {
@@ -14,7 +14,7 @@ const container: Props = {
         isbn: '9783864906466',
         title: 'Angular',
         authors: ['Ferdinand Malcher', 'Johannes Hoppe', 'Danny Koppenhagen'],
-        published: new Date(2019, 4, 30),
+        published: '2017-03-01T00:00:00.000Z',
         subtitle: 'Grundlagen, fortgeschrittene Themen und Best Practices - mit NativeScript und NgRx',
         rating: 5,
         thumbnails: [{

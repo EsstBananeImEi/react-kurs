@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import BookModel from '../../models/Book';
+import BookModel from '../../../models/Book';
 
 interface Props {
     book: BookModel
@@ -11,7 +11,7 @@ export default function BookListItem(props: Props): ReactElement {
     const onShowDetails = props.onShowDetails
 
     return (
-        <div onClick={() => onShowDetails(book)} className="item" key={book.isbn}>
+        <div onClick={() => onShowDetails(book)} className="item ui raised padded container segment" key={book.isbn}>
             <img className="ui tiny image" alt={book.title} src={book.thumbnails && book.thumbnails.length > 0 ? book.thumbnails[0].url : ''} />
             <div className="content">
                 <div className="header">{book.title}</div>
