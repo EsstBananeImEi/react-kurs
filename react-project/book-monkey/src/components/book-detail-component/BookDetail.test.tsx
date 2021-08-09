@@ -36,7 +36,31 @@ describe('Test Book Detail', () => {
     it('h1 with booktitle is visible', () => {
         render(<BookDetail book={container.book} onShowList={container.onShowList} />);
         const divElement: HTMLCollectionOf<HTMLHeadingElement> = document.getElementsByTagName('h1')
-        expect(divElement).toEqual("<h1>Angular</h1>");
+        expect(divElement).toBeTruthy();
+    });
+
+    it('h4 with auhtor is visible', () => {
+        render(<BookDetail book={container.book} onShowList={container.onShowList} />);
+        const divElement: HTMLElement = screen.getByText('Authoren')
+        expect(divElement).toBeTruthy();
+    });
+
+    it('h4 with ISBN is visible', () => {
+        render(<BookDetail book={container.book} onShowList={container.onShowList} />);
+        const divElement: HTMLElement = screen.getByText('ISBN')
+        expect(divElement).toBeTruthy();
+    });
+
+    it('h4 with text "Erschienen" is visible', () => {
+        render(<BookDetail book={container.book} onShowList={container.onShowList} />);
+        const divElement: HTMLElement = screen.getByText('Erschienen')
+        expect(divElement).toBeTruthy();
+    });
+
+    it('icons are visible', () => {
+        render(<BookDetail book={container.book} onShowList={container.onShowList} />);
+        const divElement: HTMLCollectionOf<HTMLElement> = document.getElementsByTagName('i')
+        expect(divElement.length).toEqual(5);
     });
 
 })

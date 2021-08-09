@@ -19,7 +19,7 @@ export default function BookDetail(props: Props): ReactElement {
             <div className="ui divider"></div>
             <div className="ui grid">
                 <div className="four wide column">
-                    <h4>Autoren</h4>
+                    <h4>Authoren</h4>
                     {book.authors
                         .map((author, index) => <p key={index} style={{ lineHeight: '0.5' }}>{author}</p>)}
                 </div>
