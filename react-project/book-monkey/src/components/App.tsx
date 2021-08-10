@@ -21,14 +21,14 @@ export default function App(): ReactElement {
         setViewState('listView')
     }
 
-    const onHome = () => {
+    const onShowHome = () => {
         setBook(undefined)
         setViewState('homeView')
     }
 
     return (
         <div className="ui container">
-            <NavBar onHome={onHome} onShowList={onShowList} />
+            <NavBar onShowHome={onShowHome} onShowList={onShowList} />
             {(!book && viewState === 'homeView'
                 ? <Home onShowList={onShowList} />
                 : book && viewState === 'detailView'
