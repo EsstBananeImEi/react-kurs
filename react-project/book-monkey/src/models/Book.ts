@@ -1,3 +1,4 @@
+
 export default interface BookModel {
     isbn: string;
     title: string;

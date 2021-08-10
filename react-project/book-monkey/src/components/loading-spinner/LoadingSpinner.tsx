@@ -1,10 +1,14 @@
 import React, { ReactElement } from 'react'
 
-export default function LoadingSpinner(): ReactElement {
+interface Props {
+    message: string
+}
+
+export default function LoadingSpinner(props: Props): ReactElement {
 
     return (
         <div className="ui active inverted dimmer">
-            <div className="ui text loader massive">Lade BookShelf ...</div>
+            <div className="ui text loader massive">Lade {props.message || 'Daten'}</div>
         </div>
     )
 }

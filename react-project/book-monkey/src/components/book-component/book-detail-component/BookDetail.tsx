@@ -1,6 +1,7 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import React, { ReactElement, useEffect, useState } from 'react'
 import BookModel from '../../../models/Book'
+import { bookApi, useBookApi } from '../../../shared/BookApi'
 import LoadingSpinner from '../../loading-spinner/LoadingSpinner'
 
 interface Props {
@@ -9,30 +10,12 @@ interface Props {
 }
 
 export default function BookDetail(props: Props): ReactElement {
-    const isbn = props.book.isbn
     const onShowList = props.onShowList
-    const [book, setBook] = useState<BookModel>()
 
+    const book = useBookApi<BookModel>('GET', `/book/${props.book.isbn}`)
+    const onDelete = () => bookApi('DELETE', `/book/${props.book.isbn}`, onShowList)
 
-    useEffect(() => {
-        axios({
-            method: 'GET',
-            url: `https://api3.angular-buch.com/book/${isbn}`
-        }).then(response => {
-            setBook(response.data);
-        });
-    }, [isbn]);
-
-    const onDelete = (): void => {
-        axios({
-            method: 'DELETE',
-            url: `https://api3.angular-buch.com/book/${isbn}`
-        }).then(response => {
-            onShowList();
-        });
-    }
-
-    if (!book) { return <LoadingSpinner /> }
+    if (!book) { return <LoadingSpinner message={`Buch ${props.book.isbn}`} /> }
 
     return (
         <div className='ui raised padded container segment'>

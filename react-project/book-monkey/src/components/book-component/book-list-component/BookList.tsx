@@ -1,39 +1,21 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import BookModel from '../../../models/Book'
 import BookListItem from '../book-list-item-component/BookListItem'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import LoadingSpinner from '../../loading-spinner/LoadingSpinner'
+import { bookApi, useBookApi } from '../../../shared/BookApi'
 
 interface Props {
     onShowDetails: (book: BookModel) => void
 }
 
 function BookList(props: Props): ReactElement {
-    const [books, setBooks] = useState<BookModel[]>()
+    const books = useBookApi<BookModel[]>('GET', '/books')
 
-    useEffect(() => {
-        axios({
-            method: 'GET',
-            url: 'https://api3.angular-buch.com/books'
-        }).then(response => {
-            setBooks(response.data);
-        });
-    }, []);
-
-    if (!books) { return <LoadingSpinner /> }
+    if (!books) { return <LoadingSpinner message="Buchliste ..." /> }
 
     const onReset = (): void => {
-        axios({
-            method: 'DELETE',
-            url: 'https://api3.angular-buch.com/books'
-        }).then(() => {
-            axios({
-                method: 'GET',
-                url: 'https://api3.angular-buch.com/books'
-            }).then(response => {
-                setBooks(response.data);
-            });
-        })
+        bookApi('DELETE', '/books', props.onShowDetails)
     }
 
     return (
@@ -42,11 +24,16 @@ function BookList(props: Props): ReactElement {
                 ? books.map((book: BookModel) =>
                     <BookListItem key={book.isbn} book={book} onShowDetails={props.onShowDetails} />)
                 :
-                <><h3>Es wurden keine Bücher gefunden</h3>
-                    <button onClick={onReset} className='ui button red' >Zurücksetzten</button></>
+                <>
+                    <div className="ui message red">
+                        <div className="header">
+                            <p>Es wurden keine Bücher gefunden</p>
+                            <button className="ui button red" onClick={onReset}><i className='sync alternate icon'></i>Zurücksetzen</button>
+                        </div>
+                    </div>
+                </>
             }
         </div>
-
     )
 }
 
