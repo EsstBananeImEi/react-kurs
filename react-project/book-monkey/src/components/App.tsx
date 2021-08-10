@@ -9,7 +9,7 @@ type ViewState = 'listView' | 'detailView' | 'homeView'
 
 export default function App(): ReactElement {
     const [book, setBook] = useState<BookModel>()
-    const [viewState, setViewState] = useState<ViewState>('listView')
+    const [viewState, setViewState] = useState<ViewState>('homeView')
 
     const onShowDetails = (bookParam: BookModel) => {
         setBook(bookParam)
