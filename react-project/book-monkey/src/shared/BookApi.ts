@@ -1,5 +1,7 @@
 import axios, { AxiosResponse, Method } from 'axios';
 import { useCallback, useEffect, useState } from 'react';
+import { isArray } from 'lodash'
+import BookModel, { ResponseBookModel, factoryRawToBook } from '../models/Book';
 
 export function bookApi<T>(method: Method, path: string, callback: (data: T) => void): void {
     const baseUrl = 'https://api3.angular-buch.com'
@@ -17,3 +19,17 @@ export function useBookApi<T>(method: Method, path: string): T | undefined {
 
     return state
 }
+
+axios.interceptors.response.use(function (response) {
+
+    if (!Array.isArray(response.data)) {
+        response.data = factoryRawToBook(response.data)
+    } else {
+        const newData: BookModel[] = []
+        response.data.map((book: ResponseBookModel) => newData.push(factoryRawToBook(book)))
+        response.data = newData
+    }
+    return response;
+}, function (error) {
+    return Promise.reject(error);
+});

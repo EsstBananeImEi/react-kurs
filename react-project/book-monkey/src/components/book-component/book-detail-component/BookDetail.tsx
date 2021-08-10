@@ -34,7 +34,7 @@ export default function BookDetail(props: Props): ReactElement {
                 </div>
                 <div className="four wide column">
                     <h4>Erschienen</h4>
-                    {new Date(book.published).toLocaleDateString()}
+                    {book.published.toLocaleDateString()}
                 </div>
                 <div className="four wide column">
                     <h4>Rating</h4>

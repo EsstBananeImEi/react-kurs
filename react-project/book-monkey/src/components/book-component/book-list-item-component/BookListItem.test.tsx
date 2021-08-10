@@ -14,7 +14,7 @@ const container: Props = {
         isbn: '9783864906466',
         title: 'Angular',
         authors: ['Ferdinand Malcher', 'Johannes Hoppe', 'Danny Koppenhagen'],
-        published: '2017-03-01T00:00:00.000Z',
+        published: new Date('2017-03-01T00:00:00.000Z'),
         subtitle: 'Grundlagen, fortgeschrittene Themen und Best Practices - mit NativeScript und NgRx',
         rating: 5,
         thumbnails: [{
