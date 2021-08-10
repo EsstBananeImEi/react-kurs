@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, Method } from 'axios';
-import { useCallback, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { isArray } from 'lodash'
 import BookModel, { ResponseBookModel, factoryRawToBook } from '../models/Book';
 
@@ -10,14 +10,14 @@ export function bookApi<T>(method: Method, path: string, callback: (data: T) => 
         .then((response: AxiosResponse) => { callback(response.data) });
 }
 
-export function useBookApi<T>(method: Method, path: string): T | undefined {
+export function useBookApi<T>(method: Method, path: string): [T | undefined, Dispatch<SetStateAction<T | undefined>>] {
     const [state, setState] = useState<T>()
 
     useEffect(() => {
         bookApi(method, path, setState)
     }, [method, path]);
 
-    return state
+    return [state, setState]
 }
 
 axios.interceptors.response.use(function (response) {

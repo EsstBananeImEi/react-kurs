@@ -3,19 +3,27 @@ import BookModel from '../../../models/Book'
 import BookListItem from '../book-list-item-component/BookListItem'
 import axios, { AxiosResponse } from 'axios'
 import LoadingSpinner from '../../loading-spinner/LoadingSpinner'
-import { bookApi, useBookApi } from '../../../shared/BookApi'
 
 interface Props {
     onShowDetails: (book: BookModel) => void
 }
 
 function BookList(props: Props): ReactElement {
-    const books = useBookApi<BookModel[]>('GET', '/books')
+    const [books, setBooks] = useState<BookModel[]>()
+
+    useEffect(() => {
+        axios({ method: 'GET', url: 'https://api3.angular-buch.com/books' })
+            .then((response: AxiosResponse<BookModel[]>) => { setBooks(response.data) })
+    }, []);
 
     if (!books) { return <LoadingSpinner message="Buchliste ..." /> }
 
     const onReset = (): void => {
-        bookApi('DELETE', '/books', props.onShowDetails)
+        axios({ method: 'DELETE', url: 'https://api3.angular-buch.com/books' })
+            .then(() => {
+                axios({ method: 'GET', url: 'https://api3.angular-buch.com/books' })
+                    .then((response: AxiosResponse) => { setBooks(response.data) });
+            })
     }
 
     return (
