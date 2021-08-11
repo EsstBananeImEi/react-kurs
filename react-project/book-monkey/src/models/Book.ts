@@ -1,36 +1,22 @@
-import { AxiosResponse } from "axios";
-
-export default interface BookModel {
+interface BookModelWithoutDate {
     isbn: string;
     title: string;
     authors: string[];
-    published: Date;
     subtitle?: string;
     rating?: number;
     thumbnails?: ThumbnailModel[];
     description?: string;
 }
 
-export interface ResponseBookModel {
-    isbn: string;
-    title: string;
-    authors: string[];
-    published: string;
-    subtitle?: string;
-    rating?: number;
-    thumbnails?: ThumbnailModel[];
-    description?: string;
-}
-
-export interface ThumbnailModel {
+interface ThumbnailModel {
     url: string;
     title?: string;
 }
 
-export function factoryRawToBook(book: ResponseBookModel): BookModel {
-    const newBook = {
-        ...book,
-        published: new Date(book.published)
-    }
-    return newBook
+export default interface BookModel extends BookModelWithoutDate {
+    published: Date;
+}
+
+interface ResponseBookModel extends BookModelWithoutDate {
+    published: string;
 }
