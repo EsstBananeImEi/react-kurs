@@ -12,7 +12,7 @@ export default function BookDetail(): ReactElement {
 
     if (!book) { return <LoadingSpinner message={`Buch ${isbn}`} /> }
 
-    const onGoToList = () => history.push('/react-kurs/books')
+    const onGoToList = () => history.push('/books')
     const onDelete = () => bookApi('DELETE', `/book/${isbn}`, onGoToList)
 
     return (
@@ -50,7 +50,7 @@ export default function BookDetail(): ReactElement {
                         .map((thrumbnail, index) => <img key={index} alt={book.title} src={thrumbnail.url} />)
                     : false}
             </div>
-            <Link to='/react-kurs/books' className='ui button' >zurück zur Buchliste</Link>
+            <Link to='/books' className='ui button' >zurück zur Buchliste</Link>
             <button onClick={onDelete} className='ui button red' >Buch Löschen!</button>
         </div>
     )

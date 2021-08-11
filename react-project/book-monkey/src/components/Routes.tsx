@@ -8,20 +8,20 @@ import Home from './home-component/Home'
 export default function Routes(): ReactElement {
     return (
         <Switch>
-            <Route path='/react-kurs/home'>
+            <Route path='/home'>
                 <Home />
             </Route>
-            <Route path='/react-kurs/books/:isbn'>
+            <Route path='/books/:isbn'>
                 <BookDetail />
             </Route>
-            <Route path='/react-kurs/books'>
+            <Route path='/books'>
                 <BookList />
             </Route>
-            <Route path='/react-kurs/clock'>
+            <Route path='/clock'>
                 <Clock />
             </Route>
-            <Route path='/react-kurs/'>
-                <Redirect to="/react-kurs/home" />
+            <Route path=''>
+                <Redirect to="/home" />
             </Route>
         </Switch>
     )
