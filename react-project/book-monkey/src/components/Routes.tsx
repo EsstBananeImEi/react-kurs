@@ -14,7 +14,7 @@ export default function Routes(): ReactElement {
             <Route path='/react-kurs/books/:isbn'>
                 <BookDetail />
             </Route>
-            <Route path='/react-kurs//books'>
+            <Route path='/react-kurs/books'>
                 <BookList />
             </Route>
             <Route path='/react-kurs/clock'>
