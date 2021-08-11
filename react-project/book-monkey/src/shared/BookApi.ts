@@ -1,10 +1,8 @@
 import axios, { AxiosError, AxiosResponse, Method } from 'axios';
-import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
-import { isArray } from 'lodash'
-import BookModel, { ResponseBookModel, factoryRawToBook } from '../models/Book';
+import { useEffect, useState } from 'react';
+import BookModel, { factoryRawToBook, isBook } from '../models/Book';
 import { message } from 'antd';
 import '../index.css';
-import { exit } from 'process';
 
 type Setter<T> = (data: T) => void
 
@@ -32,13 +30,12 @@ export function useBookApi<T>(method: Method, path: string): [T | undefined, Set
 }
 
 axios.interceptors.response.use(function (response) {
-
-    if (!Array.isArray(response.data)) {
-        response.data = factoryRawToBook(response.data)
-    } else {
-        const newData: BookModel[] = []
-        response.data.map((book: ResponseBookModel) => newData.push(factoryRawToBook(book)))
-        response.data = newData
+    if (response.data) {
+        if (!Array.isArray(response.data)) {
+            response.data = factoryRawToBook(response.data)
+        } else if (response.data.every(isBook)) {
+            response.data = response.data.map((book) => factoryRawToBook(book))
+        }
     }
     return response;
 }, function (error) {

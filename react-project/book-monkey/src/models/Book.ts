@@ -20,3 +20,11 @@ export default interface BookModel extends BookModelWithoutDate {
 interface ResponseBookModel extends BookModelWithoutDate {
     published: string;
 }
+
+export function isBook(book: ResponseBookModel): book is ResponseBookModel {
+    return !!(typeof book === 'object' && book.isbn && book.title && book.authors && book.published)
+}
+
+export function factoryRawToBook(book: ResponseBookModel): BookModel {
+    return { ...book, published: new Date(book.published) }
+}
