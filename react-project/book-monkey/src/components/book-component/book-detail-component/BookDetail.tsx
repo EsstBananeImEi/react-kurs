@@ -13,7 +13,7 @@ interface Props {
 export default function BookDetail(props: Props): ReactElement {
     const onShowList = props.onShowList
 
-    const [book, setBook] = useBookApi<BookModel>('GET', `/book/${props.book.isbn}`)
+    const [book] = useBookApi<BookModel>('GET', `/book/${props.book.isbn}`)
     const onDelete = () => bookApi('DELETE', `/book/${props.book.isbn}`, onShowList)
 
     if (!book) { return <LoadingSpinner message={`Buch ${props.book.isbn}`} /> }

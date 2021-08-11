@@ -6,7 +6,9 @@ import { message } from 'antd';
 import '../index.css';
 import { exit } from 'process';
 
-export function bookApi<T>(method: Method, path: string, callback: (data: T) => void): void {
+type Setter<T> = (data: T) => void
+
+export function bookApi<T>(method: Method, path: string, callback: Setter<T>, data = {}): void {
     message.config({ duration: 1.5 })
     const baseUrl = 'https://api3.angular-buch.com'
 
@@ -19,7 +21,7 @@ export function bookApi<T>(method: Method, path: string, callback: (data: T) => 
         })
 }
 
-export function useBookApi<T>(method: Method, path: string): [T | undefined, Dispatch<SetStateAction<T | undefined>>] {
+export function useBookApi<T>(method: Method, path: string): [T | undefined, Setter<T>] {
     const [state, setState] = useState<T>()
 
     useEffect(() => {

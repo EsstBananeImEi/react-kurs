@@ -15,14 +15,11 @@ function BookList(props: Props): ReactElement {
 
     if (!books) { return <LoadingSpinner message="Buchliste ..." /> }
 
-    const getGooks = () => {
-        bookApi('GET', '/books', setBooks)
-    }
-
     const onReset = (): void => {
-        bookApi('DELETE', '/books', getGooks)
+        bookApi<string>('DELETE', '/books', () => {
+            bookApi<BookModel[]>('GET', '/books', setBooks)
+        })
     }
-
 
     return (
         <div className="ui middle aligned selection divided list">
