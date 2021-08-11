@@ -11,7 +11,7 @@ export default function BookListItem(props: Props): ReactElement {
 
     return (
 
-        <Link to={`/books/${book.isbn}`} className="item ui raised padded container segment" key={book.isbn}>
+        <Link to={`/react-kurs/books/${book.isbn}`} className="item ui raised padded container segment" key={book.isbn}>
             <img className="ui tiny image" alt={book.title} src={book.thumbnails && book.thumbnails.length > 0 ? book.thumbnails[0].url : ''} />
             <div className="content">
                 <div className="header">{book.title}</div>
