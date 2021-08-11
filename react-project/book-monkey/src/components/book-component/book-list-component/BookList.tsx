@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import BookModel from '../../../models/Book'
-import { bookApi, useBookApi } from '../../../services/BookApi'
+import { bookApi, useBookApi } from '../../../hooks/BookApi'
 import LoadingSpinner from '../../loading-spinner/LoadingSpinner'
 import BookListItem from '../book-list-item-component/BookListItem'
 

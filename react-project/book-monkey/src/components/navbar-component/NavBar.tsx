@@ -6,6 +6,7 @@ export default function NavBar(): ReactElement {
         <div className='ui menu'>
             <NavLink to='/home' className='item'>Home</NavLink>
             <NavLink to='/books' className='item'>Bücher</NavLink>
+            <NavLink to='/clock' className='item'>Uhr</NavLink>
         </div>
     )
 }

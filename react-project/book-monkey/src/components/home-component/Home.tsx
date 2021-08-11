@@ -8,7 +8,7 @@ export default function Home(): ReactElement {
     return (
         <>
             <h1>Home</h1>
-            <p>Das ist der BookMonkey in React</p>
+            <p>Dies ist die BookMonkey umsetzung in React</p>
             <Link to='books' className='ui red button'>Buchliste ansehen<i className='right arrow icon'></i></Link>
             {/* <span>{(batteryState.level * 100).toFixed(0)}%</span> */}
             {/* <h2>Suche</h2>

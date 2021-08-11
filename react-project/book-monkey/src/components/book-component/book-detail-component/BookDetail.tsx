@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { Link, useHistory, useParams } from "react-router-dom"
 import BookModel from '../../../models/Book'
-import { bookApi, useBookApi } from '../../../services/BookApi'
+import { bookApi, useBookApi } from '../../../hooks/BookApi'
 import LoadingSpinner from '../../loading-spinner/LoadingSpinner'
 import './BookDetail.css'
 
