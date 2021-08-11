@@ -8,7 +8,7 @@ import Home from './home-component/Home'
 export default function Routes(): ReactElement {
     return (
         <Switch>
-            <Route path='/react-kurs'>
+            <Route path='/home'>
                 <Home />
             </Route>
             <Route path='/books/:isbn'>
@@ -21,7 +21,7 @@ export default function Routes(): ReactElement {
                 <Clock />
             </Route>
             <Route path=''>
-                <Redirect to="/react-kurs" />
+                <Redirect to="/home" />
             </Route>
         </Switch>
     )
