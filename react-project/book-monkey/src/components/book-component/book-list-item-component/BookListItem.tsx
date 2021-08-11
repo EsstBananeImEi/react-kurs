@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import BookModel from '../../../models/Book';
+import { message, Button, Space } from 'antd';
 
 interface Props {
     book: BookModel
@@ -11,6 +12,7 @@ export default function BookListItem(props: Props): ReactElement {
     const onShowDetails = props.onShowDetails
 
     return (
+
         <div onClick={() => onShowDetails(book)} className="item ui raised padded container segment" key={book.isbn}>
             <img className="ui tiny image" alt={book.title} src={book.thumbnails && book.thumbnails.length > 0 ? book.thumbnails[0].url : ''} />
             <div className="content">
@@ -28,5 +30,6 @@ export default function BookListItem(props: Props): ReactElement {
                 </div>
             </div>
         </div >
+
     )
 }

@@ -1,13 +1,22 @@
-import axios, { AxiosResponse, Method } from 'axios';
+import axios, { AxiosError, AxiosResponse, Method } from 'axios';
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { isArray } from 'lodash'
 import BookModel, { ResponseBookModel, factoryRawToBook } from '../models/Book';
+import { message } from 'antd';
+import '../index.css';
+import { exit } from 'process';
 
 export function bookApi<T>(method: Method, path: string, callback: (data: T) => void): void {
+    message.config({ duration: 1.5 })
     const baseUrl = 'https://api3.angular-buch.com'
 
     axios({ method: method, url: `${baseUrl}${path}` })
-        .then((response: AxiosResponse) => { callback(response.data) });
+        .catch(e =>
+            message.error(`keine Verbindung zu ${baseUrl}${path}`))
+        .then((response: AxiosResponse) => {
+            callback(response.data)
+            message.success(`SUCCESS ${method}`)
+        })
 }
 
 export function useBookApi<T>(method: Method, path: string): [T | undefined, Dispatch<SetStateAction<T | undefined>>] {

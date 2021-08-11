@@ -3,6 +3,7 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import BookModel from '../../../models/Book'
 import { bookApi, useBookApi } from '../../../shared/BookApi'
 import LoadingSpinner from '../../loading-spinner/LoadingSpinner'
+import './BookDetail.css'
 
 interface Props {
     book: BookModel
@@ -22,11 +23,11 @@ export default function BookDetail(props: Props): ReactElement {
             <h1>{book.title}</h1>
             <h3>{book.subtitle}</h3>
             <div className="ui divider"></div>
-            <div className="ui grid">
+            <div className='ui grid'>
                 <div className="four wide column">
                     <h4>Authoren</h4>
                     {book.authors
-                        .map((author, index) => <p key={index} style={{ lineHeight: '0.5' }}>{author}</p>)}
+                        .map((author, index) => <p key={index} >{author}</p>)}
                 </div>
                 <div className="four wide column">
                     <h4>ISBN</h4>
@@ -44,7 +45,7 @@ export default function BookDetail(props: Props): ReactElement {
                         )}
                 </div>
             </div>
-            <h4>Beschreibung</h4>
+            <h4 style={{ marginTop: 20 }}>Beschreibung</h4>
             <p>{book.description}</p>
             <div className="ui small images">
                 {book.thumbnails && book.thumbnails.length > 0
