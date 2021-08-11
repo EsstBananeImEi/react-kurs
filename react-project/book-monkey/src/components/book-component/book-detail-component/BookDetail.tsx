@@ -1,22 +1,19 @@
-import axios, { AxiosResponse } from 'axios'
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement } from 'react'
+import { Link, useHistory, useParams } from "react-router-dom"
 import BookModel from '../../../models/Book'
-import { bookApi, useBookApi } from '../../../shared/BookApi'
+import { bookApi, useBookApi } from '../../../services/BookApi'
 import LoadingSpinner from '../../loading-spinner/LoadingSpinner'
 import './BookDetail.css'
 
-interface Props {
-    book: BookModel
-    onShowList: () => void
-}
+export default function BookDetail(): ReactElement {
+    const { isbn } = useParams<{ isbn: string }>()
+    const history = useHistory()
+    const [book] = useBookApi<BookModel>('GET', `/book/${isbn}`)
 
-export default function BookDetail(props: Props): ReactElement {
-    const onShowList = props.onShowList
+    if (!book) { return <LoadingSpinner message={`Buch ${isbn}`} /> }
 
-    const [book] = useBookApi<BookModel>('GET', `/book/${props.book.isbn}`)
-    const onDelete = () => bookApi('DELETE', `/book/${props.book.isbn}`, onShowList)
-
-    if (!book) { return <LoadingSpinner message={`Buch ${props.book.isbn}`} /> }
+    const onGoToList = () => history.push('/books')
+    const onDelete = () => bookApi('DELETE', `/book/${isbn}`, onGoToList)
 
     return (
         <div className='ui raised padded container segment'>
@@ -53,7 +50,7 @@ export default function BookDetail(props: Props): ReactElement {
                         .map((thrumbnail, index) => <img key={index} alt={book.title} src={thrumbnail.url} />)
                     : false}
             </div>
-            <button onClick={onShowList} className='ui button' >zurück zur Buchliste</button>
+            <Link to='/book-list' className='ui button' >zurück zur Buchliste</Link>
             <button onClick={onDelete} className='ui button red' >Buch Löschen!</button>
         </div>
     )

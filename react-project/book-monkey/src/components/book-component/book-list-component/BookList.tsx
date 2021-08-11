@@ -1,16 +1,11 @@
-import React, { ReactElement, useEffect, useState } from 'react'
-import { message, Button, Space } from 'antd'
+import React, { ReactElement } from 'react'
 import BookModel from '../../../models/Book'
-import BookListItem from '../book-list-item-component/BookListItem'
-import axios, { AxiosResponse } from 'axios'
+import { bookApi, useBookApi } from '../../../services/BookApi'
 import LoadingSpinner from '../../loading-spinner/LoadingSpinner'
-import { bookApi, useBookApi } from '../../../shared/BookApi'
+import BookListItem from '../book-list-item-component/BookListItem'
 
-interface Props {
-    onShowDetails: (book: BookModel) => void
-}
 
-function BookList(props: Props): ReactElement {
+function BookList(): ReactElement {
     const [books, setBooks] = useBookApi<BookModel[]>('GET', '/books')
 
     if (!books) { return <LoadingSpinner message="Buchliste ..." /> }
@@ -25,7 +20,7 @@ function BookList(props: Props): ReactElement {
         <div className="ui middle aligned selection divided list">
             {books.length !== 0
                 ? books.map((book: BookModel) =>
-                    <BookListItem key={book.isbn} book={book} onShowDetails={props.onShowDetails} />)
+                    <BookListItem key={book.isbn} book={book} />)
                 :
                 <>
                     <div className="ui message red">

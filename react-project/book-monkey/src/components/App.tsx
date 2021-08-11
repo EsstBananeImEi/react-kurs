@@ -1,41 +1,19 @@
-import React, { ReactElement, useState } from 'react';
-import BookModel from '../models/Book';
-import BookList from './book-component/book-list-component/BookList';
-import BookDetail from './book-component/book-detail-component/BookDetail';
-import NavBar from './navigation-component/NavBar';
-import Home from './home-component/Home';
-
-type ViewState = 'listView' | 'detailView' | 'homeView'
+import React, { ReactElement } from 'react';
+import {
+    BrowserRouter as Router
+} from "react-router-dom";
+import Layout from './Layout';
+import NavBar from './navbar-component/NavBar';
+import Routes from './Routes';
 
 export default function App(): ReactElement {
-    const [book, setBook] = useState<BookModel>()
-    const [viewState, setViewState] = useState<ViewState>('homeView')
-
-    const onShowDetails = (bookParam: BookModel) => {
-        setBook(bookParam)
-        setViewState('detailView')
-    }
-
-    const onShowList = () => {
-        setBook(undefined)
-        setViewState('listView')
-    }
-
-    const onShowHome = () => {
-        setBook(undefined)
-        setViewState('homeView')
-    }
 
     return (
-        <div className="ui container">
-            <NavBar onShowHome={onShowHome} onShowList={onShowList} />
-            {(!book && viewState === 'homeView'
-                ? <Home onShowList={onShowList} />
-                : book && viewState === 'detailView'
-                    ? <BookDetail book={book} onShowList={onShowList} />
-                    : <BookList onShowDetails={onShowDetails} />
-            )}
-        </div>
+        <Router>
+            <Layout>
+                <Routes />
+            </Layout>
+        </Router>
     );
 }
 

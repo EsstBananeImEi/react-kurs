@@ -28,7 +28,7 @@ const container: Props = {
 
 describe('Test Book List', () => {
     it('book main div is visible', () => {
-        render(<BookList onShowDetails={container.onShowDetails} />);
+        render(<BookList />);
         const divElement = document.getElementsByClassName('ui middle aligned selection divided list')
         expect(divElement).toBeTruthy();
     });
