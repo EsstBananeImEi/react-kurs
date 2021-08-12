@@ -3,14 +3,13 @@ import { useEffect, useState } from 'react';
 import BookModel, { factoryRawToBook, isBook } from '../models/Book';
 import { message } from 'antd';
 import '../index.css';
-
-type Setter<T> = (data: T) => void
+import { Setter } from '../types/Types';
 
 export function bookApi<T>(method: Method, path: string, callback: Setter<T>, data = {}): void {
     message.config({ duration: 1.5 })
     const baseUrl = 'https://api3.angular-buch.com'
 
-    axios({ method: method, url: `${baseUrl}${path}` })
+    axios({ method: method, url: `${baseUrl}${path}`, data })
         .catch(e =>
             message.error(`keine Verbindung zu ${baseUrl}${path}`))
         .then((response: AxiosResponse) => {

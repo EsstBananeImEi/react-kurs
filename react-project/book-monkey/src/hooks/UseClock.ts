@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
+import { MyDate } from '../types/Types';
 
-type MyDate = { hour: number, minute: number, second: number }
 
 export function useClock(): [MyDate | undefined, () => void] {
     const [clock, setClock] = useState<MyDate>()

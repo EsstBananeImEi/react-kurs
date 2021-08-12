@@ -3,6 +3,7 @@ import { Link, useHistory, useParams } from "react-router-dom"
 import BookModel from '../../../models/Book'
 import { bookApi, useBookApi } from '../../../hooks/BookApi'
 import LoadingSpinner from '../../loading-spinner/LoadingSpinner'
+import { Popconfirm } from 'antd';
 import './BookDetail.css'
 
 export default function BookDetail(): ReactElement {
@@ -12,6 +13,7 @@ export default function BookDetail(): ReactElement {
 
     if (!book) { return <LoadingSpinner message={`Buch ${isbn}`} /> }
 
+    const onGoToEdit = () => history.push(`/books/${isbn}/edit`)
     const onGoToList = () => history.push('/books')
     const onDelete = () => bookApi('DELETE', `/book/${isbn}`, onGoToList)
 
@@ -50,8 +52,16 @@ export default function BookDetail(): ReactElement {
                         .map((thrumbnail, index) => <img key={index} alt={book.title} src={thrumbnail.url} />)
                     : false}
             </div>
-            <Link to='/books' className='ui button' >zurück zur Buchliste</Link>
-            <button onClick={onDelete} className='ui button red' >Buch Löschen!</button>
+            <button onClick={onGoToList} className='ui button' >zurück zur Buchliste</button>
+            <button onClick={onGoToEdit} className='ui button blue' >Buch Bearbeiten</button>
+            <Popconfirm
+                title="Möchtest du dieses Buch wirklich löschen?"
+                onConfirm={onDelete}
+                okText="Ja"
+                cancelText="Nein"
+            >
+                <button className='ui button red' >Buch Löschen!</button>
+            </Popconfirm>
         </div>
     )
 }
