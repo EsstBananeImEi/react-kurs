@@ -20,7 +20,7 @@ export default function Routes(): ReactElement {
             <Route path='/clock'>
                 <Clock />
             </Route>
-            <Route path='/react-kurs'>
+            <Route path='/'>
                 <Redirect to="/home" />
             </Route>
         </Switch>
