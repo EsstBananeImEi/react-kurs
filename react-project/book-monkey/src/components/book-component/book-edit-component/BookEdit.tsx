@@ -7,11 +7,11 @@ import BookForm from '../book-form-component/BookForm';
 
 
 export default function BookEdit(): ReactElement {
-    const { isbn } = useParams<{ isbn: string }>()
-    const [book] = useBookApi<BookModel>('GET', `/books/${isbn}`)
+    const { id } = useParams<{ id: string }>()
+    const [book] = useBookApi<BookModel>('GET', `/books/${id}`)
 
     if (!book) {
-        return <LoadingSpinner message={`Buch ${isbn}`} />
+        return <LoadingSpinner message={`Buch ${id}`} />
     }
 
     const publishedDateToString = (date: Date) => {
@@ -22,7 +22,8 @@ export default function BookEdit(): ReactElement {
     }
 
     return (
-        <BookForm isbn={book.isbn}
+        <BookForm id={book.id}
+            isbn={book.isbn}
             title={book.title}
             authors={book.authors}
             subtitle={book.subtitle}

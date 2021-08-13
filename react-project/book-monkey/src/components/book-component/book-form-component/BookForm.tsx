@@ -6,6 +6,7 @@ import { ThumbnailModel } from '../../../models/Book'
 import css from './BookForm.module.css'
 
 interface Props {
+    id?: number
     isbn: string,
     title: string,
     authors: string[],
@@ -23,6 +24,7 @@ export default function BookForm(props: Props): ReactElement {
     const buildAuthors = () => ''
     const history = useHistory()
 
+    const [id, setId] = useState(props.id)
     const [isbn, setIsbn] = useState(props.isbn)
     const [title, setTitle] = useState(props.title)
     const [authors, setAuthors] = useState(props.authors)
@@ -33,15 +35,15 @@ export default function BookForm(props: Props): ReactElement {
     const [published, setPublished] = useState(props.published)
 
     const onGoToList = () => history.push('/books')
-    const onGoToDetails = () => history.push(`/books/${isbn}`)
+    const onGoToDetails = () => history.push(`/books/${id}`)
 
     const getBook = () => {
-        return { isbn, title, authors, subtitle, thumbnails, description, published, rating }
+        return { id, isbn, title, authors, subtitle, thumbnails, description, published, rating }
     }
 
     const getBookApiParameters = (): [Method, string, () => void] => {
         if (props.isEdit) {
-            return ['PUT', `/book/${isbn}`, onGoToDetails]
+            return ['PUT', `/books/${id}`, onGoToDetails]
         }
         return ['POST', `/books/`, onGoToList]
     }

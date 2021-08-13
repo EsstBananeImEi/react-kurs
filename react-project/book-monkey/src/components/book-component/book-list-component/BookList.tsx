@@ -20,7 +20,7 @@ function BookList(): ReactElement {
         <div className="ui middle aligned selection divided list">
             {books.length !== 0
                 ? books.map((book: BookModel) =>
-                    <BookListItem key={book.isbn} book={book} />)
+                    <BookListItem key={book.id} book={book} />)
                 :
                 <>
                     <div className="ui message red">

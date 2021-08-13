@@ -5,17 +5,18 @@ import { bookApi, useBookApi } from '../../../hooks/BookApi'
 import LoadingSpinner from '../../loading-spinner/LoadingSpinner'
 import { Popconfirm } from 'antd';
 import './BookDetail.css'
+import { identity } from 'lodash'
 
 export default function BookDetail(): ReactElement {
-    const { isbn } = useParams<{ isbn: string }>()
+    const { id } = useParams<{ id: string }>()
     const history = useHistory()
-    const [book] = useBookApi<BookModel>('GET', `/book/${isbn}`)
+    const [book] = useBookApi<BookModel>('GET', `/books/${id}`)
 
-    if (!book) { return <LoadingSpinner message={`Buch ${isbn}`} /> }
+    if (!book) { return <LoadingSpinner message={`Buch ${id}`} /> }
 
-    const onGoToEdit = () => history.push(`/books/${isbn}/edit`)
+    const onGoToEdit = () => history.push(`/books/${id}/edit`)
     const onGoToList = () => history.push('/books')
-    const onDelete = () => bookApi('DELETE', `/book/${isbn}`, onGoToList)
+    const onDelete = () => bookApi('DELETE', `/books/${id}`, onGoToList)
 
     return (
         <div className='ui raised padded container segment'>

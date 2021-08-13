@@ -12,13 +12,13 @@ import BatteryComponent from './misc-components/BatteryComponent'
 export default function Routes(): ReactElement {
     return (
         <Switch>
-            <Route path='/books/:isbn/edit'>
+            <Route path='/books/:id/edit'>
                 <BookEdit />
             </Route>
             <Route path='/books/new'>
                 <BookCreate />
             </Route>
-            <Route path='/books/:isbn'>
+            <Route path='/books/:id'>
                 <BookDetail />
             </Route>
             <Route path='/books'>

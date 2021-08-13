@@ -16,7 +16,7 @@ export default function BookSearch(props: Props): ReactElement {
     const onSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchString(event.target.value)
         searchString.length > 0 && searchString != ' '
-            && bookApi('GET', `/books/search/${searchString.trim()}`, setBooks)
+            && bookApi('GET', `/books?q=${searchString.trim()}`, setBooks)
 
     }
 
@@ -34,7 +34,7 @@ export default function BookSearch(props: Props): ReactElement {
             {isComponentVisible &&
                 <div className={`results transition ${books.length > 0 && 'visible'}`}>
                     {books.map((book, index) =>
-                        <Link key={index} onClick={onClearList} className="result" to={`/books/${book.isbn}`}>
+                        <Link key={index} onClick={onClearList} className="result" to={`/books/${book.id}`}>
                             {book.title}
                             <p className="description">
                                 {book.subtitle

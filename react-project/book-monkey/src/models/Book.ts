@@ -1,4 +1,5 @@
 interface BookModelWithoutDate {
+    id: number;
     isbn: string;
     title: string;
     authors: string[];

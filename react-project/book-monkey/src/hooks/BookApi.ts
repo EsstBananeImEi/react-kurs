@@ -7,7 +7,7 @@ import { Setter } from '../types/Types';
 
 export function bookApi<T>(method: Method, path: string, callback: Setter<T>, data = {}): void {
     message.config({ duration: 1.5 })
-    const baseUrl = 'https://api3.angular-buch.com'
+    const baseUrl = 'http://localhost:3004'
 
     axios({ method: method, url: `${baseUrl}${path}`, data })
         .catch(e =>
