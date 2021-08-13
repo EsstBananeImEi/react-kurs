@@ -3,6 +3,10 @@ import BookForm from '../book-form-component/BookForm'
 
 export default function BookCreate(): ReactElement {
     return (
-        <BookForm />
+        <BookForm isbn=''
+            title=''
+            authors={['']}
+            published=''
+            isEdit={false} />
     )
 }

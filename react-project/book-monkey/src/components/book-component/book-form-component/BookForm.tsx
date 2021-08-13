@@ -1,18 +1,21 @@
+import { Method } from 'axios'
 import React, { ReactElement, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { bookApi } from '../../../hooks/BookApi'
-import BookModel, { ThumbnailModel } from '../../../models/Book'
+import { ThumbnailModel } from '../../../models/Book'
+import css from './BookForm.module.css'
 
 interface Props {
     isbn: string,
     title: string,
     authors: string[],
-    subtitle: string,
-    rating: number,
-    thumbnails: ThumbnailModel[],
-    description: string,
     published: string,
-    isEdit: boolean
+    isEdit: boolean,
+    // rating, subtitle, thumbnails and descrption only Available if isEdit equals true
+    rating?: string,
+    subtitle?: string,
+    thumbnails?: ThumbnailModel[],
+    description?: string
 }
 
 export default function BookForm(props: Props): ReactElement {
@@ -22,22 +25,32 @@ export default function BookForm(props: Props): ReactElement {
 
     const [isbn, setIsbn] = useState(props.isbn)
     const [title, setTitle] = useState(props.title)
-    const [authors, setAuthors] = useState(!Array.isArray(props.authors) ? [buildAuthors()] : props.authors)
-    const [subtitle, setSubtitle] = useState(props.subtitle)
+    const [authors, setAuthors] = useState(props.authors)
+    const [subtitle, setSubtitle] = useState(props.subtitle ? props.subtitle : '')
     const [rating, setRating] = useState(props.rating ? props.rating : 0)
-    const [thumbnails, setThumbnails] = useState(!Array.isArray(props.thumbnails) ? [buildThumbnails()] : props.thumbnails)
-    const [description, setDescription] = useState(props.description)
+    const [thumbnails, setThumbnails] = useState(props.thumbnails ? props.thumbnails : [buildThumbnails()])
+    const [description, setDescription] = useState(props.description ? props.description : '')
     const [published, setPublished] = useState(props.published)
 
     const onGoToList = () => history.push('/books')
+    const onGoToDetails = () => history.push(`/books/${isbn}`)
 
     const getBook = () => {
         return { isbn, title, authors, subtitle, thumbnails, description, published, rating }
     }
 
+    const getBookApiParameters = (): [Method, string, () => void] => {
+        if (props.isEdit) {
+            return ['PUT', `/book/${isbn}`, onGoToDetails]
+        }
+        return ['POST', `/books/`, onGoToList]
+    }
+
     const onSubmit = (e: React.FormEvent) => {
+        const [method, route, onGoFunc] = getBookApiParameters()
+
         e.preventDefault()
-        bookApi('POST', `/book`, onGoToList, getBook())
+        bookApi(method, route, onGoFunc, getBook())
     }
 
     const onAddAuthor = () => setAuthors(currentAuthors => [...currentAuthors, buildAuthors()])
@@ -76,18 +89,18 @@ export default function BookForm(props: Props): ReactElement {
     }
 
     return (
-        <form className="ui form" onSubmit={onSubmit}>
+        <form className={`ui form ${css.bookForm}`} onSubmit={onSubmit}>
             <label>Buchtitel</label>
-            <input placeholder="Titel" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <input placeholder="Titel" value={title} required onChange={(e) => setTitle(e.target.value)} />
 
             <label>Untertitel</label>
             <input placeholder="Subtitle" value={subtitle} onChange={(e) => setSubtitle(e.target.value)} />
 
             <label>Isbn</label>
-            <input placeholder="Isbn" value={isbn} onChange={(e) => setIsbn(e.target.value)} />
+            <input type='number' pattern="\d{9}|\d{11}" required disabled={props.isEdit} placeholder="Isbn" value={isbn} onChange={(e) => setIsbn(e.target.value)} />
 
             <label>Erscheinungsdatum</label>
-            <input placeholder="Published" value={published} type="date" onChange={(e) => setPublished(e.target.value)} />
+            <input placeholder="Published" value={published} required type="date" onChange={(e) => setPublished(e.target.value)} />
 
             <label>Authoren</label>
             <button onClick={onAddAuthor} className="ui mini button" type="button">+</button>
@@ -95,7 +108,7 @@ export default function BookForm(props: Props): ReactElement {
             {authors.map((author, index) =>
                 <div key={index} className="fields">
                     <div className="sixteen wide field">
-                        <input value={author} placeholder="author" onChange={(e) => onChangeAuthors(index, e.target.value)} />
+                        <input value={author} required placeholder="author" onChange={(e) => onChangeAuthors(index, e.target.value)} />
                     </div>
                 </div>
             )}
@@ -109,7 +122,7 @@ export default function BookForm(props: Props): ReactElement {
             {thumbnails.map((thumbnail, index) =>
                 <div key={index} className="field">
                     { /* 2 Inputs rendern, je fuer `title` und `url` */}
-                    <input placeholder="Url" className="nine wide field" value={thumbnail.url} onChange={(e) => onChangeThumbnail(index, 'url', e.target.value)} />
+                    <input type='url' placeholder="Url" className="nine wide field" value={thumbnail.url} onChange={(e) => onChangeThumbnail(index, 'url', e.target.value)} />
                     <input placeholder="Titel" className="seven wide field" value={thumbnail.title} onChange={(e) => onChangeThumbnail(index, 'title', e.target.value)} />
                 </div>
             )}
