@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { NavLink } from "react-router-dom";
+import BookSearch from '../book-component/book-search-component/BookSearch';
 
 export default function NavBar(): ReactElement {
     return (
@@ -9,6 +10,8 @@ export default function NavBar(): ReactElement {
             <NavLink to='/books/new' className='item'>Neues Buch Anlegen</NavLink>
             <NavLink to='/clock' className='item'>Uhr</NavLink>
             <NavLink to='/misc' className='item'>Misc</NavLink>
+            <BookSearch className='item right' />
         </div>
+
     )
 }
