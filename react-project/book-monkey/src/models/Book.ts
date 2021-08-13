@@ -8,7 +8,7 @@ interface BookModelWithoutDate {
     description?: string;
 }
 
-interface ThumbnailModel {
+export interface ThumbnailModel {
     url: string;
     title?: string;
 }
