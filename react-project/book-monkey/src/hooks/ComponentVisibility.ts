@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { ComponentVisible } from '../types/Types';
 
-export default function useComponentVisible(): ComponentVisible {
+export default function ComponentVisiblity(): ComponentVisible {
     const [isComponentVisible, setIsComponentVisible] = useState(true);
     const ref = useRef<HTMLDivElement>(null);
 
