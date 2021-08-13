@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
 import { useParams } from 'react-router-dom';
-import { useBookApi } from '../../../hooks/BookApi';
 import BookForm from '../book-form-component/BookForm';
 
 

@@ -1,25 +1,38 @@
 import React, { ReactElement, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { bookApi } from '../../../hooks/BookApi'
-import BookModel from '../../../models/Book'
+import BookModel, { ThumbnailModel } from '../../../models/Book'
 
-export default function BookForm(): ReactElement {
+interface Props {
+    isbn: string,
+    title: string,
+    authors: string[],
+    subtitle: string,
+    rating: number,
+    thumbnails: ThumbnailModel[],
+    description: string,
+    published: string,
+    isEdit: boolean
+}
+
+export default function BookForm(props: Props): ReactElement {
     const buildThumbnails = () => ({ url: '', title: '' })
     const buildAuthors = () => ''
     const history = useHistory()
 
-    const [isbn, setIsbn] = useState('')
-    const [title, setTitle] = useState('')
-    const [authors, setAuthors] = useState([buildAuthors()])
-    const [subtitle, setSubtitle] = useState('')
-    const [thumbnails, setThumbnails] = useState([buildThumbnails()])
-    const [description, setDescription] = useState('')
-    const [published, setPublished] = useState('')
+    const [isbn, setIsbn] = useState(props.isbn)
+    const [title, setTitle] = useState(props.title)
+    const [authors, setAuthors] = useState(!Array.isArray(props.authors) ? [buildAuthors()] : props.authors)
+    const [subtitle, setSubtitle] = useState(props.subtitle)
+    const [rating, setRating] = useState(props.rating ? props.rating : 0)
+    const [thumbnails, setThumbnails] = useState(!Array.isArray(props.thumbnails) ? [buildThumbnails()] : props.thumbnails)
+    const [description, setDescription] = useState(props.description)
+    const [published, setPublished] = useState(props.published)
 
     const onGoToList = () => history.push('/books')
 
     const getBook = () => {
-        return { isbn, title, authors, subtitle, thumbnails, description, published, rating: 0 }
+        return { isbn, title, authors, subtitle, thumbnails, description, published, rating }
     }
 
     const onSubmit = (e: React.FormEvent) => {
