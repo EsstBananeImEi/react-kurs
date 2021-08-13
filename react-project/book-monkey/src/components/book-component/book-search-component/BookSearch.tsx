@@ -1,9 +1,8 @@
 import React, { ReactElement, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { bookApi, useBookApi } from '../../../hooks/BookApi'
+import { bookApi } from '../../../hooks/BookApi'
 import useComponentVisible from '../../../hooks/UseComponentVisible'
 import BookModel from '../../../models/Book'
-import LoadingSpinner from '../../loading-spinner/LoadingSpinner'
 
 interface Props {
     className?: string
