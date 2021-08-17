@@ -2,7 +2,7 @@ import { Method } from 'axios'
 import React, { ReactElement, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { bookApi } from '../../../hooks/BookApi'
-import { ThumbnailModel } from '../../../models/Book'
+import { ThumbnailModel } from '../../../shared/BookModel'
 import css from './BookForm.module.css'
 
 interface Props {
@@ -123,7 +123,6 @@ export default function BookForm(props: Props): ReactElement {
             <button disabled={thumbnails.length === 1} onClick={onRemoveThumbnail} className="ui mini button" type="button">-</button>
             {thumbnails.map((thumbnail, index) =>
                 <div key={index} className="field">
-                    { /* 2 Inputs rendern, je fuer `title` und `url` */}
                     <input type='url' placeholder="Url" className="nine wide field" value={thumbnail.url} onChange={(e) => onChangeThumbnail(index, 'url', e.target.value)} />
                     <input placeholder="Titel" className="seven wide field" value={thumbnail.title} onChange={(e) => onChangeThumbnail(index, 'title', e.target.value)} />
                 </div>

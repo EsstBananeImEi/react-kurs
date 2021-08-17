@@ -1,22 +1,29 @@
+import { Popconfirm } from 'antd'
 import React, { ReactElement } from 'react'
-import { Link, useHistory, useParams } from "react-router-dom"
-import BookModel from '../../../models/Book'
+import { useHistory, useParams } from "react-router-dom"
 import { bookApi, useBookApi } from '../../../hooks/BookApi'
+import BookModel from '../../../shared/BookModel'
+import { useStore } from '../../../Store'
 import LoadingSpinner from '../../loading-spinner/LoadingSpinner'
-import { Popconfirm } from 'antd';
 import './BookDetail.css'
-import { identity } from 'lodash'
+
+
 
 export default function BookDetail(): ReactElement {
     const { id } = useParams<{ id: string }>()
     const history = useHistory()
     const [book] = useBookApi<BookModel>('GET', `/books/${id}`)
+    const { store, dispatch } = useStore()
 
     if (!book) { return <LoadingSpinner message={`Buch ${id}`} /> }
 
     const onGoToEdit = () => history.push(`/books/${id}/edit`)
     const onGoToList = () => history.push('/books')
     const onDelete = () => bookApi('DELETE', `/books/${id}`, onGoToList)
+
+    const onAddToShoppingCard = () => {
+        dispatch({ type: 'ADD_TO_CARD', book })
+    }
 
     return (
         <div className='ui raised padded container segment'>
@@ -53,8 +60,9 @@ export default function BookDetail(): ReactElement {
                         .map((thrumbnail, index) => <img key={index} alt={book.title} src={thrumbnail.url} />)
                     : false}
             </div>
-            <button onClick={onGoToList} className='ui button' >zurück zur Buchliste</button>
-            <button onClick={onGoToEdit} className='ui button blue' >Buch Bearbeiten</button>
+            <button onClick={onGoToList} className='ui button' >zurück</button>
+            <button onClick={onGoToEdit} className='ui button yellow' >Bearbeiten</button>
+            <button onClick={onAddToShoppingCard} className='ui button green' >In den Warenkorb</button>
             <Popconfirm
                 title="Möchtest du dieses Buch wirklich löschen?"
                 onConfirm={onDelete}

@@ -11,6 +11,7 @@ export default function NavBar(): ReactElement {
             <NavLink to='/clock' className='item'>Uhr</NavLink>
             <NavLink to='/misc' className='item'>Misc</NavLink>
             <BookSearch className='item right' />
+            <NavLink to='/shopping-card' className='item'>Warenkorb</NavLink>
         </div>
 
     )

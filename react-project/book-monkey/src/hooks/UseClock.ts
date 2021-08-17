@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { MyDate } from '../types/Types';
+import { MyDate } from '../shared/Types';
 
 
 export function useClock(): [MyDate | undefined, () => void] {

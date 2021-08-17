@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { useParams } from 'react-router-dom';
 import { useBookApi } from '../../../hooks/BookApi';
-import BookModel from '../../../models/Book';
+import BookModel from '../../../shared/BookModel';
 import LoadingSpinner from '../../loading-spinner/LoadingSpinner';
 import BookForm from '../book-form-component/BookForm';
 

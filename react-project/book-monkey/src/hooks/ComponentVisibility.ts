@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { ComponentVisible } from '../types/Types';
+import { ComponentVisible } from '../shared/Types';
 
 export default function ComponentVisiblity(): ComponentVisible {
     const [isComponentVisible, setIsComponentVisible] = useState(true);
@@ -20,6 +20,7 @@ export default function ComponentVisiblity(): ComponentVisible {
     useEffect(() => {
         document.addEventListener('click', handleClickOutside, true);
         document.addEventListener('click', handleClickInsite, true);
+        return
     }, []);
 
     return [ref, isComponentVisible, setIsComponentVisible]

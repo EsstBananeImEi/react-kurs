@@ -1,9 +1,9 @@
 import axios, { AxiosError, AxiosResponse, Method } from 'axios';
 import { useEffect, useState } from 'react';
-import BookModel, { factoryRawToBook, isBook } from '../models/Book';
+import BookModel, { factoryRawToBook, isBook } from '../shared/BookModel';
 import { message } from 'antd';
 import '../index.css';
-import { Setter } from '../types/Types';
+import { Setter } from '../shared/Types';
 
 export function bookApi<T>(method: Method, path: string, callback: Setter<T>, data = {}): void {
     message.config({ duration: 1.5 })

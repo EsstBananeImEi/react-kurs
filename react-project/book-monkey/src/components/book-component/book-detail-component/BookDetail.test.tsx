@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { act } from "react-dom/test-utils";
 import { unmountComponentAtNode } from 'react-dom';
-import BookModel from '../../../models/Book';
+import BookModel from '../../../shared/BookModel';
 import BookDetail from './BookDetail';
 
 interface Props {
@@ -11,6 +11,7 @@ interface Props {
 }
 const container: Props = {
     book: {
+        id: 1,
         isbn: '9783864906466',
         title: 'Angular',
         authors: ['Ferdinand Malcher', 'Johannes Hoppe', 'Danny Koppenhagen'],

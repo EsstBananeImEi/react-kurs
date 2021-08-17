@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { bookApi } from '../../../hooks/BookApi'
 import ComponentVisiblity from '../../../hooks/ComponentVisibility'
-import BookModel from '../../../models/Book'
+import BookModel from '../../../shared/BookModel'
 
 interface Props {
     className?: string

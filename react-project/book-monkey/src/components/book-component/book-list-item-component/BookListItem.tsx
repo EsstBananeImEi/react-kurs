@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react';
 import { Link } from "react-router-dom";
-import BookModel from '../../../models/Book';
+import BookModel from '../../../shared/BookModel';
 
 interface Props {
-    book: BookModel
+    book: BookModel,
+    children?: ReactElement
 }
 
 export default function BookListItem(props: Props): ReactElement {
@@ -27,6 +28,7 @@ export default function BookListItem(props: Props): ReactElement {
                     ISBN {book.isbn}
                 </div>
             </div>
+            {props.children}
         </Link >
 
     )

@@ -6,6 +6,7 @@ interface Props {
 }
 
 export default function Layout(props: Props): ReactElement {
+
     return (
         <>
             <NavBar />

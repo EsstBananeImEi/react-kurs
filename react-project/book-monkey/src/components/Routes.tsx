@@ -1,10 +1,12 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useReducer } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
+import { initialState, reducer } from '../Store'
 import BookCreate from './book-component/book-create-component/BookCreate'
 import BookDetail from './book-component/book-detail-component/BookDetail'
 import BookEdit from './book-component/book-edit-component/BookEdit'
 import BookForm from './book-component/book-form-component/BookForm'
 import BookList from './book-component/book-list-component/BookList'
+import BookShoppingCard from './book-component/book-shopping-card/BookShoppingCard'
 import Clock from './clock-component/Clock'
 import Home from './home-component/Home'
 import BatteryComponent from './misc-components/BatteryComponent'
@@ -29,6 +31,9 @@ export default function Routes(): ReactElement {
             </Route>
             <Route path='/clock'>
                 <Clock />
+            </Route>
+            <Route path='/shopping-card'>
+                <BookShoppingCard />
             </Route>
             <Route path='/home'>
                 <Home />
